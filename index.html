@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>girlfriend - AI Chat Platform</title>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WC4677QJMF"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-WC4677QJMF');
+    </script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1 class="app-title">
+                    <i class="fas fa-brain"></i>
+                    <span>girlfriend</span>
+                </h1>
+                <button class="sidebar-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+            </div>
+            
+            <div class="user-info">
+                <div class="avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="user-details">
+                    <span class="user-name">User</span>
+                    <span class="user-balance">
+                        <i class="fas fa-heart"></i>
+                        <span id="balance">20</span> Coins
+                    </span>
+                </div>
+                <button class="recharge-btn" onclick="openRechargeModal()">
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+            </div>
+
+            <div class="role-section">
+                <h3 class="section-title">
+                    <i class="fas fa-users"></i>
+                    Character List
+                </h3>
+                <div class="role-list" id="roleList">
+                    <div class="loading-placeholder">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <span>Loading...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <button class="settings-btn">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </button>
+            </div>
+        </aside>
+
+        <main class="chat-container">
+            <div class="chat-header">
+                <button class="mobile-menu-btn" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="current-role">
+                    <div class="role-avatar small">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="role-info">
+                        <span class="role-name" id="currentRoleName">AI Assistant</span>
+                        <span class="role-status online">Online</span>
+                    </div>
+                </div>
+                <div class="chat-actions">
+                    <button class="action-btn" onclick="clearChat()">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                    <button class="action-btn" onclick="toggleTheme()">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="chat-messages" id="chatMessages">
+                <div class="welcome-message">
+                    <div class="welcome-icon">
+                        <i class="fas fa-wave"></i>
+                    </div>
+                    <h2>Welcome to girlfriend.wangdadi.xyz</h2>
+                    <p>Select a character to start chatting, or type a message directly</p>
+                </div>
+            </div>
+
+            <div class="chat-input-area">
+                <div class="input-tools">
+                    <button class="tool-btn" id="drawTool" onclick="toggleDrawMode()">
+                        <i class="fas fa-palette"></i>
+                    </button>
+                    <button class="tool-btn">
+                        <i class="fas fa-paperclip"></i>
+                    </button>
+                </div>
+                <div class="input-wrapper">
+                    <input 
+                        type="text" 
+                        id="chatInput" 
+                        placeholder="Type a message..." 
+                        onkeydown="handleKeyDown(event)"
+                    >
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()">
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+                <div class="input-hints">
+                    <span>Press Enter to send</span>
+                    <span>|</span>
+                    <span>Type /draw to start drawing</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="rechargeModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-coins"></i>
+                    Recharge Center
+                </h2>
+                <button class="close-btn" onclick="closeRechargeModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="recharge-options">
+                    <div class="recharge-card" data-amount="100">
+                        <span class="recharge-price">¥10</span>
+                        <span class="recharge-coins">100 Coins</span>
+                    </div>
+                    <div class="recharge-card" data-amount="500">
+                        <span class="recharge-price">¥45</span>
+                        <span class="recharge-coins">500 Coins</span>
+                        <span class="discount-tag">Save ¥5</span>
+                    </div>
+                    <div class="recharge-card selected" data-amount="1000">
+                        <span class="recharge-price">¥80</span>
+                        <span class="recharge-coins">1000 Coins</span>
+                        <span class="discount-tag">Save ¥20</span>
+                        <span class="popular-tag">Recommended</span>
+                    </div>
+                    <div class="recharge-card" data-amount="5000">
+                        <span class="recharge-price">¥350</span>
+                        <span class="recharge-coins">5000 Coins</span>
+                        <span class="discount-tag">Save ¥150</span>
+                    </div>
+                </div>
+                <div class="payment-methods">
+                    <h3>Payment Methods</h3>
+                    <div class="method-options">
+                        <button class="method-btn active">
+                            <i class="fab fa-weixin"></i>
+                            WeChat Pay
+                        </button>
+                        <button class="method-btn">
+                            <i class="fab fa-alipay"></i>
+                            Alipay
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closeRechargeModal()">Cancel</button>
+                <button class="confirm-btn" onclick="confirmRecharge()">Confirm Recharge</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="paymentModal">
+        <div class="modal-content payment-modal">
+            <div class="modal-header">
+                <h2>
+                    <i class="fas fa-shopping-cart"></i>
+                    Buy Coins
+                </h2>
+                <button class="close-btn" onclick="closePaymentModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="product-options">
+                    <div class="product-card" data-product-id="1">
+                        <span class="product-name">Starter Pack</span>
+                        <span class="product-price">$4.99</span>
+                        <span class="product-coins">100 Coins</span>
+                    </div>
+                    <div class="product-card" data-product-id="2">
+                        <span class="product-name">Advanced Pack</span>
+                        <span class="product-price">$19.99</span>
+                        <span class="product-coins">500 Coins</span>
+                        <span class="discount-tag">Value</span>
+                    </div>
+                    <div class="product-card" data-product-id="3">
+                        <span class="product-name">Premium Pack</span>
+                        <span class="product-price">$49.99</span>
+                        <span class="product-coins">1500 Coins</span>
+                        <span class="discount-tag">Best Value</span>
+                    </div>
+                </div>
+                <div id="lemonsqueezy-button-container"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="cancel-btn" onclick="closePaymentModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="loveValueModal">
+        <div class="love-modal-content">
+            <div class="love-modal-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h2 class="love-modal-title">AI Energy Depleted</h2>
+            <p class="love-modal-desc">Today's free chat quota has been used</p>
+            <p class="love-modal-sub">AI energy depleted. Please come back tomorrow<br/>or recharge to unlock unlimited chats</p>
+            <div class="love-modal-actions">
+                <a href="https://afdian.net/" target="_blank" class="love-btn primary">
+                    <i class="fas fa-bolt"></i>
+                    Support on Afdian
+                </a>
+                <button class="love-btn secondary" onclick="closeLoveValueModal()">
+                    Continue Browsing
+                </button>
+            </div>
+            <div class="love-modal-footer">
+                <p>Support Quality · Reject Free Riding</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="https://assets.lemonsqueezy.com/lemon.js"></script>
+</body>
+</html>

@@ -1,0 +1,17 @@
+node_modules
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.DS_Store
+*.log
+.vercel
+dist
+build
+.cache
+.vscode
+.idea
+*.swp
+*.swo
+*~

@@ -1,0 +1,30 @@
+{
+  "name": "nicheai",
+  "version": "1.0.0",
+  "description": "NicheAI - 智能对话平台",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Build completed'",
+    "start": "vercel dev",
+    "import-characters": "node inject_memory.js"
+  },
+  "keywords": [
+    "AI",
+    "chat",
+    "drawing",
+    "Grok",
+    "Fal.ai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "vercel": "^32.0.0"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.4",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1"
+  },
+  "type": "commonjs"
+}
