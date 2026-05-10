@@ -1,24 +1,12 @@
 {
-    "buildCommand": "echo 'Build completed'",
-    "functions": {
-        "api/chat.js": {
-            "runtime": "@vercel/node@3.2.12"
-        }
-    },
-    "routes": [
-        {
-            "src": "/api/chat",
-            "dest": "/api/chat.js"
-        },
-        {
-            "src": "/api/draw",
-            "dest": "/api/draw.js"
-        },
-        {
-            "handle": "filesystem"
-        }
-    ],
-    "env": {
-        "NODE_ENV": "production"
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/**",
+      "use": "@vercel/node"
     }
+  ],
+  "routes": [
+    { "src": "/(.*)", "dest": "/" }
+  ]
 }
