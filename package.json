@@ -1,5 +1,11 @@
 {
   "name": "girlfriend",
   "version": "1.0.0",
-  "description": "AI Chat Platform"
+  "description": "AI Chat Platform",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }
